@@ -16,7 +16,7 @@ app.use(bodyParser.json());
 // Connect to MongoDB
 mongoose
     .connect(process.env.MONGODB_URI || "mongodb://localhost:27017/bookmanager")
-    .then(() => console.log("MongoDB connected"))
+    .then(() => console.log("MongoDB connected")) 
     .catch((err) => console.error(err));
 
 // Routes
