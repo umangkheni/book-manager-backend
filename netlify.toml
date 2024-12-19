@@ -1,0 +1,8 @@
+[build]
+  functions = "functions"
+  publish = "dist" # or your build directory if you have one
+
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/server"
+  status = 200

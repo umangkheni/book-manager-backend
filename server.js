@@ -4,6 +4,7 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 const booksRouter = require('./routes/books');
 const authRouter = require('./routes/auth');
+const serverless = require('serverless-http');
 require('dotenv').config();
 
 const app = express();
@@ -25,12 +26,10 @@ mongoose
 // Routes
 app.use('/api/books', booksRouter);
 app.use('/api/auth', authRouter);
+app.get('/api', (req, res) => {
+    res.json({ message: 'Hello from Express!' });
+});
 
 // Check if the port is already in use before starting the server
 const server = app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
-server.on('error', (error) => {
-    if (error.code === 'EADDRINUSE') {
-        console.error(`Port ${PORT} is already in use.`);
-        process.exit(1);
-    }
-});
+module.exports.handler = serverless(app);
