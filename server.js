@@ -26,4 +26,11 @@ mongoose
 app.use('/api/books', booksRouter);
 app.use('/api/auth', authRouter);
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+// Check if the port is already in use before starting the server
+const server = app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+server.on('error', (error) => {
+    if (error.code === 'EADDRINUSE') {
+        console.error(`Port ${PORT} is already in use.`);
+        process.exit(1);
+    }
+});
